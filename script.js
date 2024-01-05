@@ -97,7 +97,7 @@ function showNextQuestion(){
             questionDone.innerHTML = `Current Question: ${questionIndex}/ ${numOfQuestion}`;
     }else{
         hideQuestoinPanle(true);
-        alert(`Congratulations \ngood job\nyou finshed ${numOfQuestion} Question with ${mistakeCounte} Mistake`);
+        alert(`Congratulations \ngood job\nQuestion Count: ${numOfQuestion}\nMistake Count: ${mistakeCounte}`);
         gameStart = false;
         document.getElementById("numOfQuestion").value = minoption;
     }

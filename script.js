@@ -41,6 +41,9 @@ function fillOptions(min, max, difficultyLevels, type="none"){
             if(input.value.length == questiondict[question].length){
                 checkAnswer();
             }
+        });
+
+        input.addEventListener("keypress", function(event){
             input.setSelectionRange(0, 0);
         });
     }else{

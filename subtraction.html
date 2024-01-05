@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+        <title>Math Games</title>
+    </head>
+
+    <body onload="fillOptions(3, 12, [10, 100, 200], 'sub')">
+        <div class="innerContainer">
+            <h1 class="thirteen">Subtraction Game</h1>
+            <br><br>
+            <label>Difficulty :</label>
+            <!-- it is filled in js form body onload -->
+            <select id="difficultySelection">
+            </select>
+            <br><br>
+            <label>Number Of Questions :</label>
+            <!-- it is filled in js form body onload -->
+            <select id="numOfQuestion">
+            </select>
+            <br><br>
+            <button class="button-42" onclick="startGame(makeSubQuestion)">Start Game</button>
+            <br><br>
+            <div id="questionPanle", class="innerContainer">
+                <h3 id="questionsDone"></h3>
+                <br><br>
+                <h3 id="questionLabel"></h3>
+                <br><br>
+                <input id="answerinput">
+                <h4 id="resultLabel"></h4>
+            </div>
+        </div>  
+        <br><br>
+        <button class="button-62" onclick="location.href = 'index.html'">Go To Home</button> 
+    </body>
+
+</html>

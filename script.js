@@ -7,6 +7,7 @@ var gameStart = false;
 var minoption;
 var difficultyDict = ["Easy", "Medium", "Hard"];
 var timeOutValue = 1000;
+var congratsMsgTimeOut = 750;
 var resetImageTimeOut = setTimeout(resetImage, timeOutValue);
 
 function fillOptions(min, max, difficultyLevels, type="none"){
@@ -103,11 +104,14 @@ function showNextQuestion(){
             questionLabel.innerHTML = list[questionIndex];
             questionIndex++;
             questionDone.innerHTML = `Current Question: ${questionIndex}/ ${numOfQuestion}`;
-    }else{
-        hideQuestoinPanle(true);
-        alert(`Congratulations \ngood job\nQuestion Count: ${numOfQuestion}\nMistake Count: ${mistakeCounte}`);
-        gameStart = false;
-        document.getElementById("numOfQuestion").value = minoption;
+    }else{  
+        setTimeout(function(){
+            hideQuestoinPanle(true);
+            alert(`Congratulations \ngood job\nQuestion Count: ${numOfQuestion}\nMistake Count: ${mistakeCounte}`);
+            gameStart = false;
+            document.getElementById("numOfQuestion").value = minoption;
+        }, congratsMsgTimeOut);
+        
     }
 
 }

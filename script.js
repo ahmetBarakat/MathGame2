@@ -6,6 +6,8 @@ var numOfQuestion;
 var gameStart = false;
 var minoption;
 var difficultyDict = ["Easy", "Medium", "Hard"];
+var timeOutValue = 1000;
+var resetImageTimeOut = setTimeout(resetImage, timeOutValue);
 
 function fillOptions(min, max, difficultyLevels, type="none"){
     minoption = min;
@@ -40,6 +42,7 @@ function fillOptions(min, max, difficultyLevels, type="none"){
             let question = document.getElementById("questionLabel").innerHTML;
             if(input.value.length == questiondict[question].length){
                 checkAnswer();
+                console.log("in EventListener");
             }
         });
 
@@ -52,6 +55,7 @@ function fillOptions(min, max, difficultyLevels, type="none"){
             let question = document.getElementById("questionLabel").innerHTML;
             if(input.value.length == questiondict[question].length){
                 checkAnswer();
+                console.log("in EventListener");
             }
         });
 
@@ -73,6 +77,7 @@ function startGame(questionCreatation){
     gameStart = true;
     questionIndex = 0;
     mistakeCounte = 0;
+    document.getElementById("resultimg").src = ""
     numOfQuestion = document.getElementById("numOfQuestion").value;
     // console.log(numOfQuestion);
     questiondict = questionCreatation(numOfQuestion, 4);
@@ -210,19 +215,40 @@ function randint(a, b){
 }
 
 function checkAnswer(){
+    console.log("in check answer");
     let answerinput = document.getElementById("answerinput");
     let resultlabel = document.getElementById("resultLabel");
+    let resultImage = document.getElementById("resultimg");
     let question = document.getElementById("questionLabel").innerHTML;
     // console.log(question);
     if(questiondict[question] == answerinput.value.trim()){
+        playSound(true);
         resultlabel.innerHTML = "Correct";
+        resultImage.src = "rightMark.png";
+        clearTimeout(resetImageTimeOut);
         showNextQuestion();
     }else{
+        playSound(false);
         resultlabel.innerHTML = "Incorrect";
+        resultImage.src = "wrongMark.png";
+        clearTimeout(resetImageTimeOut);
         mistakeCounte++;
     }
+    resetImageTimeOut = setTimeout(resetImage, timeOutValue);
     answerinput.value = "";
     setFocusToAnswerInput();
+}
+
+function playSound(type){
+    if(type){
+        document.getElementById("correctaudio").play();
+    }else{
+        document.getElementById("incorrectaudio").play();
+    }
+}
+
+function resetImage(){
+    document.getElementById("resultimg").src = "";
 }
 
 function hideQuestoinPanle(value){

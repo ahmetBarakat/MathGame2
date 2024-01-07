@@ -1,4 +1,3 @@
-var difficultyLevel = 1;
 var questiondict;
 var questionIndex = 0;
 var mistakeCounte = 0;
@@ -6,8 +5,8 @@ var numOfQuestion;
 var gameStart = false;
 var minoption;
 var difficultyDict = ["Easy", "Medium", "Hard"];
-var timeOutValue = 1000;
-var congratsMsgTimeOut = 750;
+var timeOutValue = 750;
+var congratsMsgTimeOut = 200;
 var resetImageTimeOut = setTimeout(resetImage, timeOutValue);
 
 function fillOptions(min, max, difficultyLevels, type="none"){
@@ -52,7 +51,6 @@ function fillOptions(min, max, difficultyLevels, type="none"){
         });
     }else{
         input.addEventListener("keyup", function(event) {
-            // console.log(input.value);
             let question = document.getElementById("questionLabel").innerHTML;
             if(input.value.length == questiondict[question].length){
                 checkAnswer();
@@ -63,14 +61,6 @@ function fillOptions(min, max, difficultyLevels, type="none"){
     }
 }
 
-function btn_difficulty_mode(num){
-    if (gameStart){
-        return;
-    }
-    difficultyLevel = num;
-    // console.log(difficultyLevel);
-}
-
 function startGame(questionCreatation){
     if (gameStart){
         return;
@@ -78,6 +68,7 @@ function startGame(questionCreatation){
     gameStart = true;
     questionIndex = 0;
     mistakeCounte = 0;
+    document.getElementById("answerinput").disabled = false;
     document.getElementById("resultimg").src = ""
     numOfQuestion = document.getElementById("numOfQuestion").value;
     // console.log(numOfQuestion);
@@ -104,7 +95,9 @@ function showNextQuestion(){
             questionLabel.innerHTML = list[questionIndex];
             questionIndex++;
             questionDone.innerHTML = `Current Question: ${questionIndex}/ ${numOfQuestion}`;
-    }else{  
+    }else{
+        gameStart = false;
+        document.getElementById("answerinput").disabled = true;
         setTimeout(function(){
             hideQuestoinPanle(true);
             alert(`Congratulations \ngood job\nQuestion Count: ${numOfQuestion}\nMistake Count: ${mistakeCounte}`);
@@ -219,21 +212,21 @@ function randint(a, b){
 }
 
 function checkAnswer(){
+    if(!gameStart){
+        return;
+    }
     console.log("in check answer");
     let answerinput = document.getElementById("answerinput");
-    let resultlabel = document.getElementById("resultLabel");
     let resultImage = document.getElementById("resultimg");
     let question = document.getElementById("questionLabel").innerHTML;
     // console.log(question);
     if(questiondict[question] == answerinput.value.trim()){
         playSound(true);
-        resultlabel.innerHTML = "Correct";
         resultImage.src = "rightMark.png";
         clearTimeout(resetImageTimeOut);
         showNextQuestion();
     }else{
         playSound(false);
-        resultlabel.innerHTML = "Incorrect";
         resultImage.src = "wrongMark.png";
         clearTimeout(resetImageTimeOut);
         mistakeCounte++;

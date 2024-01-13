@@ -14,7 +14,7 @@ function fillOptions(min, max, difficultyLevels, type="none"){
     hideQuestoinPanle(true);
     let combobox_numofques = document.getElementById("numOfQuestion");
     let combobox_difficultyLevel = document.getElementById("difficultySelection");
-    document.getElementById("correctaudio").volume = 0.015;
+    document.getElementById("correctaudio").volume = 0.1;
     document.getElementById("incorrectaudio").volume = 0.1;
     for(let i = min; i <= max; i++){
         let opt = document.createElement("option");

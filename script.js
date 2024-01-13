@@ -14,6 +14,8 @@ function fillOptions(min, max, difficultyLevels, type="none"){
     hideQuestoinPanle(true);
     let combobox_numofques = document.getElementById("numOfQuestion");
     let combobox_difficultyLevel = document.getElementById("difficultySelection");
+    document.getElementById("correctaudio").volume = 0.015;
+    document.getElementById("incorrectaudio").volume = 0.1;
     for(let i = min; i <= max; i++){
         let opt = document.createElement("option");
         opt.value = i;
@@ -40,21 +42,20 @@ function fillOptions(min, max, difficultyLevels, type="none"){
     if(type == "add" || type == "sub"){
         input.addEventListener("keyup", function(event) {
             let question = document.getElementById("questionLabel").innerHTML;
-            if(input.value.length == questiondict[question].length){
+            if(input.value.length >= questiondict[question].length){
                 checkAnswer();
-                console.log("in EventListener");
             }
         });
 
         input.addEventListener("keypress", function(event){
+            document.getElementById("questionLabel").focus();
             input.setSelectionRange(0, 0);
         });
     }else{
         input.addEventListener("keyup", function(event) {
             let question = document.getElementById("questionLabel").innerHTML;
-            if(input.value.length == questiondict[question].length){
+            if(input.value.length >= questiondict[question].length){
                 checkAnswer();
-                console.log("in EventListener");
             }
         });
 
